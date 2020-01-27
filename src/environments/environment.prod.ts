@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  
+  ALERGHAST_ENDPOINT: "http://kevin-i6ou.localhost.run"
 };

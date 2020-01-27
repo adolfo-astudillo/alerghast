@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UsersService {
   constructor(public http: HttpClient) { }
 
   addUser(body:any) {
-    return this.http.post(`http://192.168.43.248:8090/register`, body);
+    return this.http.post(environment.ALERGHAST_ENDPOINT + `/register`, body);
   }
 
   login(body:any) {
-    return this.http.post(`http://192.168.43.248:8090/addUser`, body);
+    return this.http.post(environment.ALERGHAST_ENDPOINT + `/login`, body);
   }
 }
