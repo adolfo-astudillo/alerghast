@@ -1,0 +1,45 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Resultados</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">CERRAR
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-card class="ion-text-center">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon *ngIf="results.result == 'none'" name="checkmark-circle" style="color: green; font-size: 100px;"></ion-icon>
+        <ion-icon *ngIf="results.result == 'found'" name="close-circle" style="color: red; font-size: 100px;"></ion-icon>
+        <ion-icon *ngIf="results.result == 'noproduct' || results.result == 'noingredient'" name="help-circle" style="color: orange; font-size: 100px;"></ion-icon>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p *ngIf="results.result == 'none'">No se encontraron tus alérgenos registrados en este producto</p>
+      <p *ngIf="results.result == 'found'">Se encontró al menos uno de tus alérgenos en los ingredientes de este producto.</p>
+      <p *ngIf="results.result == 'noproduct'">Lo sentimos, no pudimos encontrar este producto</p>
+      <p *ngIf="results.result == 'noingredient'">Lo sentimos, no pudimos encontrar los ingredientes de este producto</p>
+
+      <ion-chip outline color="danger" *ngIf="results.result == 'none' || results.result == 'found'">
+        <ion-label color="danger">Aún así recomendamos que revises los ingredientes a continuación</ion-label>
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="ion-text-center" *ngIf="results.result == 'none' || results.result == 'found'">
+    <ion-card-header>
+      <ion-card-subtitle>
+        Nombre Producto
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let ingredient of results.ingredients">
+          <ion-label>{{ingredient}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

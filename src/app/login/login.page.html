@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login Alerghast
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form (submit)="login()" #loginForm="ngForm">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating">E-mail<ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input  pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})" required type="email" [(ngModel)]="formData.email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña<ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input minlength="5" required type="password" [(ngModel)]="formData.password" name="password"></ion-input>
+      </ion-item>
+
+      <div class="ion-padding">
+        <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="loginForm.form.invalid">INGRESAR</ion-button>
+      </div>
+      <div class="ion-padding ion-text-center">
+        <a routerLink="/register">No tengo una cuenta. Quiero registrarme.</a>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

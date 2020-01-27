@@ -1,0 +1,18 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Mis alérgenos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">CERRAR
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item *ngFor="let alergen of alergens">
+      <ion-label>{{alergen.alergen}}</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="alergen.isChecked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>

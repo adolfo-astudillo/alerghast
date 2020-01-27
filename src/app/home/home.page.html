@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Escanear Producto
+    </ion-title>
+    <ion-button style="margin-right:10px" slot="end" color="dark" (click)="logout()">
+      <ion-icon name="exit"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Importante</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Alerghast app utiliza la base de datos opensource <a href="https://world.openfoodfacts.org/">Open Food Facts</a>,
+      que contine más de 1 millón de productos. Aún así, es una fuente mantenida y creada por voluntarios. Por ello, los
+      productos registrados varían por los digitadores voluntarios de cada país; en el <a href="https://world.openfoodfacts.org/country/chile/25">caso de
+        Chile</a> solo teniendo 510 (Enero 2020).
+    </ion-card-content>
+  </ion-card>
+  <ion-card style="margin-bottom: 80px">
+    <ion-card-header>
+      <ion-card-title>Créditos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Aplicación android y API Alerghast creada por:
+      <ul>
+        <li>Kevin Araneda</li>
+        <li>Adolfo Astudillo</li>
+        <li>Javiera Gonzáles</li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+
+  {{barcodeData}}
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="scanBarcode()">
+      <ion-icon name="barcode"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
