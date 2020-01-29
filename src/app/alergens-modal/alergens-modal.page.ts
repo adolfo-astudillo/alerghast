@@ -15,26 +15,6 @@ export class AlergensModal {
   }
 
   ngOnInit() {
-    if(this.alergens.length === 0) {
-      this.alergens = [
-        {
-          id: 1,
-          alergen: "Pescado"
-        },
-        {
-          id: 2,
-          alergen: "Maní"
-        },
-        {
-          id: 3,
-          alergen: "Leche"
-        },
-        {
-          id: 4,
-          alergen: "Gluten"
-        }
-      ]
-    }
   }
 
   dismissModal() {

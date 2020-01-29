@@ -17,23 +17,26 @@ export class HomeComponent {
   currentImage: any;
   barcodeData: any;
   results: any;
+  sessionEmail: string;
 
   constructor(private barcodeScanner: BarcodeScanner, private openFoodService: OpenFoodService, private alerghastService: AlerghastService, private loadingController: LoadingController, private alertController: AlertController, private storage: Storage, private router: Router, private modalController: ModalController) { }
 
   ngOnInit() {
-    //this.scanBarcode();
+    this.storage.get("session").then((res: any) => {
+      this.sessionEmail = res;
+    });
   }
 
-  async getProductByBarcode(code: any) {
+  async getProductByBarcode(code: any, email: string) {
     const loading = await this.loadingController.create({
       message: 'Analizando...',
       translucent: true
     });
     loading.present();
 
-    this.alerghastService.getBarcodeAnalisis(code).subscribe((res: any) => {
+    this.alerghastService.getBarcodeAnalisis(code, email).subscribe((res: any) => {
       loading.dismiss();
-      this.barcodeData = res.product.product_name + ` - ${res.product.brands}`;
+      this.presentModal();
     }, err => {
       console.error(err);
       loading.dismiss();
@@ -45,28 +48,15 @@ export class HomeComponent {
     });
   }
 
-
-  // getProductByBarcode(code:any){
-  //   this.openFoodService.getProductByBarcode(code).subscribe((res: any) => {
-  //     this.barcodeData = res.product.product_name + ` - ${res.product.brands}`;
-  //   })
-  // }
-
-
   scanBarcode() {
-    this.presentModal();
-
-    // this.barcodeScanner.scan().then(barcodeData => {
-    //   if (barcodeData.text) {
-    //     this.getProductByBarcode(barcodeData.text);
-    //     //this.barcodeData = JSON.stringify(barcodeData);
-    //     console.log('Barcode data', barcodeData);
-    //   } else {
-    //     this.presentModal();
-    //   }
-    // }).catch(err => {
-    //   console.log('Error', err);
-    // });
+    this.barcodeScanner.scan().then(barcodeData => {
+      if (barcodeData.text) {
+        this.getProductByBarcode(barcodeData.text, this.sessionEmail);
+        console.log('Barcode data', barcodeData);
+      }
+    }).catch(err => {
+      console.log('Error', err);
+    });
   }
 
   async presentAlert(alertObject: any) {

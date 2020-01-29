@@ -7,8 +7,12 @@ export class AlerghastService {
 
   constructor(public http: HttpClient) { }
 
-  getBarcodeAnalisis(code:any) {
-    return this.http.get(environment.ALERGHAST_ENDPOINT + `/product`);
+  getBarcodeAnalisis(code:any, email:string) {
+    return this.http.get(environment.ALERGHAST_ENDPOINT + `/scan`);
+  }
+
+  getAlergens() {
+    return this.http.get(environment.ALERGHAST_ENDPOINT + `/alergens`);
   }
 
 }

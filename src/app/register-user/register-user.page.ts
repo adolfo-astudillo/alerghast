@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { AlergensModal } from '../alergens-modal/alergens-modal.page';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
+import { AlerghastService } from '../services/alerghast.service';
 
 @Component({
   selector: 'app-register-user',
   templateUrl: 'register-user.page.html',
   styleUrls: ['register-user.page.scss'],
-  providers: [UsersService]
+  providers: [UsersService, AlerghastService]
 })
 export class RegisterUserComponent {
 
@@ -15,29 +16,16 @@ export class RegisterUserComponent {
     alergens: [{}]
   };
 
-  alergens: Array<any> = [
-    {
-      id: 1,
-      alergen: "Pescado"
-    },
-    {
-      id: 2,
-      alergen: "Maní"
-    },
-    {
-      id: 3,
-      alergen: "Leche"
-    },
-    {
-      id: 4,
-      alergen: "Gluten"
-    }
-  ]
+  alergens: Array<any>;
 
   selectedAlergens: Array<any> = [];
   selectedAlergensAmount: number = 0;
 
-  constructor(private loadingController: LoadingController, private usersService: UsersService, public modalController: ModalController, private alertController: AlertController) {
+  constructor(private loadingController: LoadingController, private usersService: UsersService, public modalController: ModalController, private alertController: AlertController, private alerghastService: AlerghastService) {
+  }
+
+  ngOnInit() {
+    this.getAlergens();
   }
 
   async registerUser() {
@@ -119,5 +107,17 @@ export class RegisterUserComponent {
 
   validatePassword() {
     return this.formData.password == this.formData.passwordRepeat
+  }
+
+  async getAlergens() {
+    this.alerghastService.getAlergens().subscribe((res: any) => {
+      this.alergens = res.alergens;
+    }, error => {
+      this.presentAlert({
+        header: 'Registrar cuenta Alerghast',
+        message: 'Hubo un error al intentar obtener los alergenos',
+        buttons: ['OK']
+      })
+    })
   }
 }
